@@ -1,6 +1,7 @@
 import random
 import timeit
 
+
 # Linear Search method
 def LinearSearchMethod(lst, x):
     for j in range(len(lst)): #iteration through array
@@ -91,3 +92,21 @@ print ("Average Binary search: " + str(Average_BinarySearch))
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""
+The interpolated funtion specifically the linear function fits to the linear graph and reveals a consistent, linear increase, whre time frows proportionally 
+to the size of the array. The log function fits the binary data because the search time increases as the array size expands, 
+overall the interpolated functions accurately visual representation of their respective complexities.
+"""

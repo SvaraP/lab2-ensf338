@@ -1,3 +1,5 @@
+import timeit
+
 # Part 1: Questions  
 #1. What does this code do? [0.1 pts]
 
@@ -13,12 +15,36 @@
 #3. Give an expression for the time complexity of the algorithm [0.2 pts]
     # this is an exponential algorithm, which has a time complericity expression of O(2^n)
 
-
 # provided code 
-
+#recursive call 
 def func(n):
     if n == 0 or n == 1:
         return n
     else:
         return func(n-1) + func(n-2)
+    
+#4. 
+#memoization and recursive call 
+memo = {} # makes an empty dictionairy where memo will store it's values 
+
+#AI use declaration (33-40)
+#I used Chatgpt to help me come up with the syntax for  memoization as I couldn't find 
+#find information regaurding this in the notes.
+def memo_function(n):
+  if n in memo:
+    return memo[n] # if n already exists, return that value
+  if n == 0 or n == 1:
+    return n  # if n is 0 or 1, it can directly return 0 or 1 directly
+  if n not in memo:
+    memo[n]= func(n-1) + func(n-2) #if n value is not in memo, it's computed using recursion
+    return memo [n]
+  
+#5. Give an expression for the time complexity of the optimized algorith:
+  #time complericity expression of O(n)
+
+#6. 
+total_time_1 = timeit.timeit(stmt="memo_function(35)", setup="from __main__ import memo_function", number=1)
+total_time_2 = timeit.timeit(stmt="func(35)", setup="from __main__ import func", number=1)
+print( total_time_1)
+print( total_time_2)
     

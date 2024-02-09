@@ -12,7 +12,30 @@ Q2: How does profiling differ from benchmarking?
     to comparing different versions of code (all serving the same end goal) to see which performs better overall.
     For example, profiling is like seeing which section of an assignment is taking the longest to do whereas
     benchmarking is like comparing the time it takes to do assignments in general.
-"""
+
+Q3: Use a profiler to measure execution time of the program(skip function definitions).
+
+    Answered in the code that is provided 
+
+Q4: Discuss a sample output. Where does execution time go?
+
+    The output of a profiler includes the number of function calls (ncalls) which depicts the number of times that 
+    the function was called. It allows for a differentiation between the total number of calls and the number of 
+    primitive calls. Primitive calls are called that are not due to recursion, the way I remember it is that primitive
+    is the way primal/ initial contacts. Then there is the total time (totime) which is the time that the code spends executing the code. 
+    After that we have the cumulative time (cumtime) which is the cumulative time that the functon spends in all of the functions. Basically
+    if a function calls itself then the cumtime is indicative of the time in the back and forth as well. Next there is 
+    the per call time (percall) which is the average time spent percall to the function. Which is calculated by the total 
+    time divided by the number of calls (totime/ ncalls). Finally we have the filename and te line number (filename:lineno(function))
+    this essentially identifies in the output what the location of the source code is and where the function is defined.
+
+    Essentially, the key takeaways are as follows:
+    - ncalls = number of calls 
+    - totime = total time 
+    - cumtime = cumulative time 
+    - percall = per call time 
+    - filename:lineno(function) = filename and line number 
+    """
 
 
 

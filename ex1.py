@@ -44,24 +44,33 @@ def memo_function(n):
 #5. Give an expression for the time complexity of the optimized algorith:
   #time complericity expression of O(n)
 
-#6. 
-total_time_1 = timeit.timeit(stmt="memo_function(35)", setup="from __main__ import memo_function", number=1)
-total_time_2 = timeit.timeit(stmt="func(35)", setup="from __main__ import func", number=1)
-print( total_time_1)
-print( total_time_2)
+#6.  
+#AI use declaration for the plotting
+#I used Chatgpt to help me fix the plot code as it was only plotting one value
+# and kept breaking. I ran my original code through and it helped me find my mistakes and fix them
+total_time_memo_function = []
+total_time_func = []
 
-plt.plot(total_time_1, color='skyblue', marker='o', label='Recursive Function')
-plt.xlabel('Sample')
-plt.ylabel('Time (seconds)')
-plt.title('Distribution of Processing Time for Memoized Function')
+for n in range(36):
+    total_time_memo = timeit.timeit(stmt=f"memo_function({n})", setup="from __main__ import memo_function", number=1)
+    total_time_memo_function.append(total_time_memo)
+    
+    total_time_recursive = timeit.timeit(stmt=f"func({n})", setup="from __main__ import func", number=1)
+    total_time_func.append(total_time_recursive)
+
+# Plotting 
+plt.plot(total_time_memo_function, color='orange', marker='x', label='Memoized Function')
+plt.xlabel('Value(n)')
+plt.ylabel('Time (s)')
+plt.title('Timming Plot for Memoized Function')
 plt.legend()
-plt.savefig('ex1.6.1.jpg ')
+plt.savefig('ex1.6.1.jpg') 
+plt.show()
+plt.plot(total_time_func, color='green', marker='o', label='Recursive Function')
+plt.xlabel('Value (n)')
+plt.ylabel('Time (seconds)')
+plt.title('Timming Plot for Recursive Function')
+plt.legend()
+plt.savefig('ex1.6.2.jpg')  
 plt.show()
 
-plt.plot(total_time_2, color='red', marker='x', label='Memoize Function')
-plt.xlabel('Sample')
-plt.ylabel('Time (seconds)')
-plt.title('Distribution of Processing Time for Recursive Function')
-plt.legend()
-plt.savefig('ex1.6.2.jpg')
-plt.show()

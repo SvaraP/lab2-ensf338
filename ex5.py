@@ -1,6 +1,8 @@
 import random
 import timeit
-
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
 
 # Linear Search method
 def LinearSearchMethod(lst, x):
@@ -68,7 +70,6 @@ Average_LinearSearch = (array1000_linearSearch + array2000_linearSearch + array4
 print ("Average linear search: " + str(Average_LinearSearch))
 
 # Binary Search timimg 
-# Linear Search timming 
 array1000_BinarySearch = timeit.timeit(stmt="BinarySearchMethod(array1000,999)", 
                              setup="from __main__ import BinarySearchMethod, array1000", 
                              number=1000)
@@ -93,6 +94,38 @@ print ("Average Binary search: " + str(Average_BinarySearch))
 
 
 
+# Data points to be used by the plot
+array_sizes = np.array([1000, 2000, 4000, 8000, 16000, 32000])
+linear_search_times = np.array([array1000_linearSearch, array2000_linearSearch, array4000_linearSearch, array8000_linearSearch, array16000_linearSearch, array32000_linearSearch])
+binary_search_times = np.array([array1000_BinarySearch, array2000_BinarySearch, array4000_BinarySearch, array8000_BinarySearch, array16000_BinarySearch, array32000_BinarySearch])
+
+# functions for curve fitting
+#AI use declaration for helping fix the formulas (line 105 to 111)
+def linear_function(x, a, b):
+    return a * x + b 
+linear_params, _ = curve_fit(linear_function, array_sizes, linear_search_times)
+
+def logarithmic_function(x, c, d):
+    return c * np.log(x) + d
+binary_params, _ = curve_fit(logarithmic_function, array_sizes, binary_search_times)
+
+# Plotting:
+plt.scatter(array_sizes, linear_search_times, color='blue', label='Linear Search Times')
+plt.plot(array_sizes, linear_function(array_sizes, *linear_params), color='red', label='Interpolated Linear Function')
+plt.xlabel('Size Of Array')
+plt.ylabel('Time (s)')
+plt.title('Linear Search')
+plt.legend()
+plt.show()
+
+plt.scatter(array_sizes, binary_search_times, color='green', label='Binary Search Times')
+plt.plot(array_sizes, logarithmic_function(array_sizes, *binary_params), color='orange', label='Interpolated Logarithmic Function')
+plt.xlabel('Size Of Array')
+plt.ylabel('Time (s)')
+plt.title('Binary Search')
+plt.legend()
+plt.show()
+
 
 
 
@@ -106,7 +139,14 @@ print ("Average Binary search: " + str(Average_BinarySearch))
 
 
 """
-The interpolated funtion specifically the linear function fits to the linear graph and reveals a consistent, linear increase, whre time frows proportionally 
-to the size of the array. The log function fits the binary data because the search time increases as the array size expands, 
-overall the interpolated functions accurately visual representation of their respective complexities.
+Linear Search:
+    * Works by sequentially iterating through an array to locate a specific element.
+    * Time complexity increases linearly as the size of the array increases because it needs to check each element one by one.
+Binary Search:
+    * Utilizes a divide-and-conquer approach to locate a specific element by halving the search area over and over.
+    * It has way quicker search time when compared to Linear Search because of its logarithmic time complexity.
+     this causes is way less comparissons in binary search to locate the target element.
+Comparison:
+    * The output of the code showcases that the average time it takes for a Binary Search is less than that of Linear Search.
+
 """

@@ -1,4 +1,6 @@
 import timeit
+import matplotlib.pyplot as plt
+import numpy as np
 
 # Part 1: Questions  
 #1. What does this code do? [0.1 pts]
@@ -29,7 +31,7 @@ memo = {} # makes an empty dictionairy where memo will store it's values
 
 #AI use declaration (33-40)
 #I used Chatgpt to help me come up with the syntax for  memoization as I couldn't find 
-#find information regaurding this in the notes.
+# find information regaurding this in the notes.
 def memo_function(n):
   if n in memo:
     return memo[n] # if n already exists, return that value
@@ -47,4 +49,19 @@ total_time_1 = timeit.timeit(stmt="memo_function(35)", setup="from __main__ impo
 total_time_2 = timeit.timeit(stmt="func(35)", setup="from __main__ import func", number=1)
 print( total_time_1)
 print( total_time_2)
-    
+
+plt.plot(total_time_1, color='skyblue', marker='o', label='Memoized Function')
+plt.xlabel('Sample')
+plt.ylabel('Time (seconds)')
+plt.title('Distribution of Processing Time for Memoized Function')
+plt.legend()
+plt.savefig('memoized_function_plot.png')
+plt.show()
+
+plt.plot(total_time_2, color='orange', marker='x', label='Recursive Function')
+plt.xlabel('Sample')
+plt.ylabel('Time (seconds)')
+plt.title('Distribution of Processing Time for Recursive Function')
+plt.legend()
+plt.savefig('recursive_function_plot.png')
+plt.show()
